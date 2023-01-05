@@ -1,0 +1,35 @@
+version: '3.5'
+services:
+  zookeeper-1:
+    image: docker.mofid.dev/confluentinc/cp-zookeeper:5.0.1
+    hostname: zookeeper-1
+    container_name: zookeeper-1
+    restart: always
+    extra_hosts:
+      - "zookeeper-2:172.17.0.1"
+      - "zookeeper-3:172.17.0.1"
+    ports:
+      - "22181:22181"
+      - "22888:22888"
+      - "23888:23888"
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 22181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_LOG4J_ROOT_LOGLEVEL: "DEBUG"
+      ZOOKEEPER_SERVERS: zookeeper-1:22888:23888;zookeeper-2:32888:33888;zookeeper-3:42888:43888
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_server_jaas.conf
+        -Dquorum.auth.enableSasl=true
+        -Dquorum.auth.learnerRequireSasl=true
+        -Dquorum.auth.serverRequireSasl=true
+        -Dquorum.cnxn.threads.size=20
+        -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider
+        -Dzookeeper.authProvider.2=org.apache.zookeeper.server.auth.DigestAuthenticationProvider
+        -DjaasLoginRenew=3600000
+        -DrequireClientAuthScheme=sasl
+        -Dquorum.auth.learner.loginContext=QuorumLearner
+        -Dquorum.auth.server.loginContext=QuorumServer
+    volumes:
+      - ./secrets/zookeeper_server_jaas.conf:/etc/kafka/secrets/zookeeper_server_jaas.conf

@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  mongo2:
+    hostname: mongo2
+    image: docker.mofid.dev/mongo:6.0.3
+    extra_hosts:
+      - "mongo1:172.17.0.1"
+      - "mongo3:172.17.0.1"
+    ports:
+      - 27018:27018
+    entrypoint: [ "/usr/bin/mongod", "--config", "/data/config/mongodb.conf", "--bind_ip_all", "--replSet", "dbrs" ]
+    volumes:
+      - ./.db/mongo2:/data/db
+      - ./ssl:/data/ssl
+      - ./config:/data/config
+      - ./wait-for-mongodb.sh:/scripts/wait-for-mongodb.sh

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  redis-2:
+    container_name: "redis-2"
+    image: docker.mofid.dev/redis:7-alpine
+    network_mode: host
+    command: redis-server --slaveof redis-1 6380 --requirepass test --masterauth test --appendonly yes --maxmemory 256mb --port 6381 
+    volumes:
+      - "./redis.conf:/etc/redis.conf"
+      - "./data:/data"
+
+  redis-sentinel2:
+    container_name: "redis-sentinel2"
+    image: docker.mofid.dev/redis:7-alpine
+    network_mode: host
+    command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
+    volumes:
+      - "./sentinel_conf:/usr/local/etc/redis"

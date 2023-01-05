@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  zookeeper-add-kafka-users:
+    image: docker.mofid.dev/confluentinc/cp-kafka:5.0.1
+    container_name: "zookeeper-add-kafka-users"
+    extra_hosts:
+      - "zookeeper-1:172.17.0.1"
+      - "zookeeper-2:172.17.0.1"
+      - "zookeeper-3:172.17.0.1"
+    command: "bash -c 'echo Waiting for Zookeeper to be ready... && \
+                          cub zk-ready zookeeper-1:22181 120 && \
+                          cub zk-ready zookeeper-2:32181 120 && \
+                          cub zk-ready zookeeper-3:42181 120 && \
+                          kafka-configs --zookeeper zookeeper-1:22181 --alter --add-config 'SCRAM-SHA-256=[iterations=4096,password=password]' --entity-type users --entity-name metricsreporter && \
+                          kafka-configs --zookeeper zookeeper-1:22181 --alter --add-config 'SCRAM-SHA-256=[iterations=4096,password=password]' --entity-type users --entity-name kafkaclient && \
+                          kafka-configs --zookeeper zookeeper-1:22181 --alter --add-config 'SCRAM-SHA-256=[iterations=4096,password=password]' --entity-type users --entity-name kafkabroker '"
+    environment:
+      KAFKA_BROKER_ID: ignored
+      KAFKA_ZOOKEEPER_CONNECT: ignored
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_client_jaas.conf
+    volumes:
+      - ./secrets/zookeeper_client_jaas.conf:/etc/kafka/secrets/zookeeper_client_jaas.conf

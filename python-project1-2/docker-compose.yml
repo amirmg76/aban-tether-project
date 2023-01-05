@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  producer:
+    image: amg76/flask-producer
+    ports:
+      - 5001:5000
+    extra_hosts:
+      - "kafka-broker-1:172.17.0.1"
+      - "kafka-broker-2:172.17.0.1"
+      - "kafka-broker-3:172.17.0.1"

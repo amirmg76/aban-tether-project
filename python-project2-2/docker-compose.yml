@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  producer:
+    image: amg76/flask-consumer
+    ports:
+      - 6001:5000
+    extra_hosts:
+      - "kafka-broker-1:172.17.0.1"
+      - "kafka-broker-2:172.17.0.1"
+      - "kafka-broker-3:172.17.0.1"
+      - "mongo1:172.17.0.1"
+      - "mongo2:172.17.0.1"
+      - "mongo3:172.17.0.1"
