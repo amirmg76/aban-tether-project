@@ -5,6 +5,7 @@ services:
     hostname: kafka-broker-3
     container_name: kafka-broker-3
     restart: always
+    user: root
     extra_hosts:
       - "zookeeper-1:172.17.0.1"
       - "zookeeper-2:172.17.0.1"
@@ -51,3 +52,4 @@ services:
     volumes:
       - ./ssl/broker-3:/etc/kafka/secrets
       - ./secrets:/etc/kafka/secrets/conf
+      - ./data:/var/lib/kafka/data

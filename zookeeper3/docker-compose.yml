@@ -5,6 +5,7 @@ services:
     hostname: zookeeper-3
     container_name: zookeeper-3
     restart: always
+    user: root
     extra_hosts:
       - "zookeeper-1:172.17.0.1"
       - "zookeeper-2:172.17.0.1"
@@ -33,3 +34,4 @@ services:
         -Dquorum.auth.server.loginContext=QuorumServer
     volumes:
       - ./secrets/zookeeper_server_jaas.conf:/etc/kafka/secrets/zookeeper_server_jaas.conf
+      - ./data:/var/lib/zookeeper/data

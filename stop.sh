@@ -20,6 +20,10 @@ docker-compose -f "zookeeper1/docker-compose.yml" down
 docker-compose -f "zookeeper2/docker-compose.yml" down
 docker-compose -f "zookeeper3/docker-compose.yml" down
 
+rm -rf zookeeper1/data
+rm -rf zookeeper2/data
+rm -rf zookeeper3/data
+
 
 ###########kafka###############
 
@@ -27,6 +31,9 @@ docker-compose -f "kafka1/docker-compose.yml" down
 docker-compose -f "kafka2/docker-compose.yml" down
 docker-compose -f "kafka3/docker-compose.yml" down
 
+rm -rf kafka1/data
+rm -rf kafka2/data
+rm -rf kafka3/data
 
 #############redis################
 

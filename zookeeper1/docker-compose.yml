@@ -4,6 +4,7 @@ services:
     image: confluentinc/cp-zookeeper:5.0.1
     hostname: zookeeper-1
     container_name: zookeeper-1
+    user: root
     restart: always
     extra_hosts:
       - "zookeeper-2:172.17.0.1"
@@ -33,3 +34,4 @@ services:
         -Dquorum.auth.server.loginContext=QuorumServer
     volumes:
       - ./secrets/zookeeper_server_jaas.conf:/etc/kafka/secrets/zookeeper_server_jaas.conf
+      - ./data:/var/lib/zookeeper/data
