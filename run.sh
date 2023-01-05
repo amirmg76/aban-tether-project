@@ -19,6 +19,9 @@ cp mongodb.conf mongo3/config/mongodb.conf
 sed -i  's/27017/27018/g' mongo2/config/mongodb.conf
 sed -i  's/27017/27019/g' mongo3/config/mongodb.conf
 
+chmod 600 mongo1/ssl/mongodb-keyfile.key
+chmod 600 mongo2/ssl/mongodb-keyfile.key
+chmod 600 mongo3/ssl/mongodb-keyfile.key
 
 docker-compose -f "mongo1/docker-compose.yml" up -d
 docker-compose -f "mongo2/docker-compose.yml" up -d
