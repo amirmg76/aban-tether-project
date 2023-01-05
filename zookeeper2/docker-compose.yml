@@ -1,9 +1,10 @@
 version: '3.5'
 services:
   zookeeper-2:
-    image: docker.mofid.dev/confluentinc/cp-zookeeper:5.0.1
+    image: confluentinc/cp-zookeeper:5.0.1
     hostname: zookeeper-2
     container_name: zookeeper-2
+    restart: always
     extra_hosts:
       - "zookeeper-1:172.17.0.1"
       - "zookeeper-3:172.17.0.1"

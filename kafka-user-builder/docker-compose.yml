@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   zookeeper-add-kafka-users:
-    image: docker.mofid.dev/confluentinc/cp-kafka:5.0.1
+    image: confluentinc/cp-kafka:5.0.1
     container_name: "zookeeper-add-kafka-users"
     extra_hosts:
       - "zookeeper-1:172.17.0.1"

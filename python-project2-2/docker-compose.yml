@@ -3,6 +3,7 @@ version: "3"
 services:
   producer:
     image: amg76/flask-consumer
+    restart: always
     ports:
       - 6001:5000
     extra_hosts:

@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   zookeeper-3:
-    image: docker.mofid.dev/confluentinc/cp-zookeeper:5.0.1
+    image: confluentinc/cp-zookeeper:5.0.1
     hostname: zookeeper-3
     container_name: zookeeper-3
     restart: always

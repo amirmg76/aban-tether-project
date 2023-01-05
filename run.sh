@@ -103,6 +103,7 @@ docker-compose -f "redis3/docker-compose.yml" up -d
 
 ##########python############
 
+sleep 30 
 docker-compose -f "python-project1-1/docker-compose.yml" down
 docker-compose -f "python-project2-1/docker-compose.yml" down
 docker-compose -f "python-project1-2/docker-compose.yml" down

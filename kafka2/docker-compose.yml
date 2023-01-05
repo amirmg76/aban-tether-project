@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   kafka-broker-2:
-    image: docker.mofid.dev/confluentinc/cp-kafka:5.0.1
+    image: confluentinc/cp-kafka:5.0.1
     hostname: kafka-broker-2
     container_name: kafka-broker-2
     restart: always
